@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Carbon-aware marine AI showcase for next-day South Florida sea-surface-temperature forecasting." />
+    <title>Carbon-Aware Marine AI for Sustainable SST Forecasting</title>
+    <link rel="icon" href="images/ping.png" type="image/png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="neural-network" aria-hidden="true"></canvas>
+    <div class="container">
+      <div class="name"><a href="https://bipinchowdary.github.io/" target="_blank" rel="noopener noreferrer">Bipin Chowdary</a></div>
+      <button class="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false"><span aria-hidden="true">☀</span></button>
+
+      <main>
+        <h1 class="main-title glass-effect">Carbon-Aware Marine AI for Sustainable SST Forecasting</h1>
+
+        <section class="section" aria-labelledby="info-title"><div class="info">
+          <h2 id="info-title">INFO</h2>
+          <p>This case study compares next-day sea surface temperature forecasting models and then estimates how the same small offline training workload would differ across selected cloud regions. The supplied Spring 2026 course paper and result files support a 2021-2024 NOAA OISST study period; no publication status is claimed.</p>
+        </div></section>
+
+        <section class="section" aria-labelledby="question-title"><div class="info">
+          <h2 id="question-title">RESEARCH QUESTION</h2>
+          <p>How accurately can several machine-learning approaches predict next-day SST along the South Florida Atlantic Coast, how do their accuracy and estimated compute impacts compare, and what estimated cloud-emissions difference results from placing a fixed offline workload in regions with different reported grid carbon intensities?</p>
+        </div></section>
+
+        <section class="section" aria-labelledby="area-title"><div class="info">
+          <h2 id="area-title">STUDY AREA AND DATA</h2>
+          <p>The analysis uses daily NOAA Optimum Interpolation Sea Surface Temperature data from January 1, 2021 through December 31, 2024 for Atlantic-side coastal waters from the Biscayne and Miami area toward West Palm Beach. The supplied summary records 1,461 daily time steps, 42 regional grid cells before cleaning, and 32 retained ocean grid cells.</p>
+        </div></section>
+
+        <section class="section" aria-labelledby="workflow-title"><div class="info">
+          <h2 id="workflow-title">FORECASTING WORKFLOW</h2>
+          <p>The pipeline cleans invalid coastal and land-adjacent cells, creates location, seasonal, current-SST, lag, and rolling features, trains on January 15, 2021 through December 31, 2023, and evaluates on January 1 through December 30, 2024. It compares persistence, Ridge Regression, Random Forest, XGBoost, and a PyTorch neural network.</p>
+          <div class="image-container glass-effect"><img src="images/forecasting-workflow.png" alt="Verified workflow from NOAA OISST data through preprocessing, forecasting models, CodeCarbon tracking, and cloud-region simulation" /></div>
+        </div></section>
+
+        <section class="section" aria-labelledby="comparison-title"><div class="info">
+          <h2 id="comparison-title">MODEL COMPARISON</h2>
+          <div class="table-wrap glass-effect">
+            <table>
+              <caption class="caption">Verified 2024 test-set metrics from the supplied output file</caption>
+              <thead><tr><th scope="col">Model</th><th scope="col">MAE (&deg;C)</th><th scope="col">RMSE (&deg;C)</th><th scope="col">R&sup2;</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Ridge Regression</th><td>0.0984</td><td>0.1336</td><td>0.9958</td></tr>
+                <tr><th scope="row">Persistence baseline</th><td>0.1083</td><td>0.1451</td><td>0.9950</td></tr>
+                <tr><th scope="row">Random Forest</th><td>0.1119</td><td>0.1529</td><td>0.9944</td></tr>
+                <tr><th scope="row">XGBoost</th><td>0.1182</td><td>0.1622</td><td>0.9937</td></tr>
+                <tr><th scope="row">PyTorch neural network</th><td>0.7273</td><td>0.9103</td><td>0.8031</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="image-container glass-effect"><img src="images/model-comparison.png" alt="Verified bar chart comparing next-day SST RMSE across five evaluated forecasting approaches" /></div>
+        </div></section>
+
+        <section class="section" aria-labelledby="results-title"><div class="info">
+          <h2 id="results-title">RESULTS</h2>
+          <p>Ridge Regression achieved the lowest evaluated RMSE, 0.1336 &deg;C, compared with 0.1451 &deg;C for the persistence baseline. The supplied analysis reports a 7.92% RMSE improvement over persistence for this dataset and split. This is a limited regional test result, not a universal claim about SST forecasting.</p>
+          <div class="image-container glass-effect"><img src="images/daily-forecast-comparison.png" alt="Verified 2024 daily regional mean actual and Ridge Regression predicted sea surface temperatures" /></div>
+        </div></section>
+
+        <section class="section" aria-labelledby="carbon-title"><div class="info">
+          <h2 id="carbon-title">CARBON-AWARE EXECUTION</h2>
+          <p>CodeCarbon estimated local training energy and emissions for the trained models. The cloud comparison then reused the recorded Ridge Regression workload energy with 2024 regional grid-carbon data; the model was not physically trained in every region. For the evaluated comparison, simulated emissions were approximately 99.53% lower for <em>europe-north2</em> than for the <em>us-east1</em> reference. This is an estimated regional scenario for one very small offline workload, not directly measured physical emissions or a universal carbon-saving rate.</p>
+          <div class="image-container glass-effect"><img src="images/regional-carbon-comparison.png" alt="Verified estimated carbon savings for the Ridge Regression workload across selected regions relative to us-east1" /></div>
+        </div></section>
+
+        <section class="section" aria-labelledby="limits-title"><div class="info">
+          <h2 id="limits-title">LIMITATIONS</h2>
+          <p>The study uses one regional subset, one temporal split, and a small compute workload. CodeCarbon values are estimates, and the cloud-region values are simulations based on reported grid carbon intensity rather than repeated physical runs in each location. Region choice in practice also depends on latency, cost, data movement, privacy, service availability, and operational requirements. The findings should not be generalized to all models, datasets, regions, or marine forecasting tasks.</p>
+        </div></section>
+
+        <section class="section" aria-labelledby="links-title"><div class="info">
+          <h2 id="links-title">PROJECT LINKS</h2>
+          <div class="link-list"><a class="link-button glass-effect" href="https://github.com/BipinChowdary/carbon_aware_marine_ai" target="_blank" rel="noopener noreferrer">View source repository</a></div>
+        </div></section>
+      </main>
+
+      <div class="footer-text">Project By <a href="https://www.linkedin.com/in/bipin-chowdary8055/" target="_blank" rel="noopener noreferrer">Bipin Chowdary</a> All rights reserved till <span class="bow" id="hidden-icon">⋈</span></div>
+      <button class="scroll-top" type="button" aria-label="Scroll to top"><span aria-hidden="true">↑</span></button>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
