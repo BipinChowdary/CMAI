@@ -171,9 +171,9 @@ canvas {
 
 .caption {
     max-width: 720px;
-    margin: -0.75rem auto 0;
-    padding: 0 1rem;
-    font-size: 16px;
+    margin: 0.75rem auto 0;
+    padding: 1px;
+    font-size: 25px;
     line-height: 1.6;
     text-align: center;
     opacity: 0.88;
